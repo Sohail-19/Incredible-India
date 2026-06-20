@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Resets ──────────────────────────────────────── */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+}
+
+/* ─── Component Utilities ─────────────────────────────── */
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-card bg-surface shadow-card transition-shadow duration-200 hover:shadow-card-hover;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-dark active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn border border-border bg-transparent px-5 py-2.5 text-sm font-semibold text-text-primary transition-all duration-200 hover:bg-gray-50 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-btn bg-transparent px-4 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-gray-100;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-tint text-primary;
+  }
+
+  .badge-green {
+    @apply badge bg-secondary-tint text-secondary;
+  }
+
+  .badge-success {
+    @apply badge bg-green-50 text-success;
+  }
+
+  .badge-warning {
+    @apply badge bg-orange-50 text-warning;
+  }
+
+  .input-field {
+    @apply w-full rounded-btn border border-border bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-tertiary transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20;
+  }
+}
+
+/* ─── Animations ──────────────────────────────────────── */
+@layer utilities {
+  .animate-stagger > * {
+    animation: slideUp 0.3s ease-out backwards;
+  }
+
+  .animate-stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .animate-stagger > *:nth-child(2) { animation-delay: 60ms; }
+  .animate-stagger > *:nth-child(3) { animation-delay: 120ms; }
+  .animate-stagger > *:nth-child(4) { animation-delay: 180ms; }
+  .animate-stagger > *:nth-child(5) { animation-delay: 240ms; }
+  .animate-stagger > *:nth-child(6) { animation-delay: 300ms; }
+}
+
+/* ─── Leaflet Override (prevent Tailwind conflicts) ──── */
+.leaflet-container {
+  font-family: inherit;
+}
