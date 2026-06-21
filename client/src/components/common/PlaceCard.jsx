@@ -26,7 +26,7 @@ const PlaceCard = ({ place, variant = 'standard', isWishlisted = false, onToggle
         {/* Full-bleed Image */}
         <div className="relative h-72 sm:h-80 lg:h-96">
           <img
-            src={place.imageUrls?.hero || '/placeholder.jpg'}
+            src={place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}/800/600`}
             alt={place.name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
@@ -76,7 +76,7 @@ const PlaceCard = ({ place, variant = 'standard', isWishlisted = false, onToggle
       {/* Image */}
       <div className="relative h-44 overflow-hidden">
         <img
-          src={place.imageUrls?.thumb || place.imageUrls?.hero || '/placeholder.jpg'}
+          src={place.imageUrls?.thumb || place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}/800/600`}
           alt={place.name}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"

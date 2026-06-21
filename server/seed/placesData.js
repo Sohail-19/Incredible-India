@@ -29,9 +29,9 @@ const placesData = [
       'Moderate trek through pine forests',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?prashar-lake,india',
-      detail: 'https://source.unsplash.com/800x600/?prashar-lake,travel',
-      thumb: 'https://source.unsplash.com/400x300/?prashar-lake,india',
+      hero: 'https://picsum.photos/seed/prashar-lake/800/600',
+      detail: 'https://picsum.photos/seed/prashar-lake-detail/800/600',
+      thumb: 'https://picsum.photos/seed/prashar-lake/400/300',
     },
     howToReach: {
       train: 'Nearest railway station is Joginder Nagar (55 km) on the narrow gauge line from Pathankot.',
@@ -72,9 +72,9 @@ const placesData = [
       'Traditional bamboo and cane crafts',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?ziro-valley,india',
-      detail: 'https://source.unsplash.com/800x600/?ziro-valley,travel',
-      thumb: 'https://source.unsplash.com/400x300/?ziro-valley,india',
+      hero: 'https://picsum.photos/seed/ziro-valley/800/600',
+      detail: 'https://picsum.photos/seed/ziro-valley-detail/800/600',
+      thumb: 'https://picsum.photos/seed/ziro-valley/400/300',
     },
     howToReach: {
       train: 'Nearest railhead is Naharlagun (130 km), connected to Guwahati by Jan Shatabdi.',
@@ -113,9 +113,9 @@ const placesData = [
       'Birdwatching at the lake shore',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?lonar-crater-lake,india',
-      detail: 'https://source.unsplash.com/800x600/?lonar-crater-lake,travel',
-      thumb: 'https://source.unsplash.com/400x300/?lonar-crater-lake,india',
+      hero: 'https://picsum.photos/seed/lonar-crater-lake/800/600',
+      detail: 'https://picsum.photos/seed/lonar-crater-lake-detail/800/600',
+      thumb: 'https://picsum.photos/seed/lonar-crater-lake/400/300',
     },
     howToReach: {
       train: 'Nearest major station is Jalna (80 km), well connected to Mumbai and Hyderabad.',
@@ -155,9 +155,9 @@ const placesData = [
       'Mishing tribal stilt-house stays',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?majuli-island,india',
-      detail: 'https://source.unsplash.com/800x600/?majuli-island,travel',
-      thumb: 'https://source.unsplash.com/400x300/?majuli-island,india',
+      hero: 'https://picsum.photos/seed/majuli-island/800/600',
+      detail: 'https://picsum.photos/seed/majuli-island-detail/800/600',
+      thumb: 'https://picsum.photos/seed/majuli-island/400/300',
     },
     howToReach: {
       train: 'Nearest station is Jorhat Town (20 km to Nimati Ghat), connected to Guwahati.',
@@ -197,9 +197,9 @@ const placesData = [
       'Snow trekking in winter',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?chopta,india',
-      detail: 'https://source.unsplash.com/800x600/?chopta,travel',
-      thumb: 'https://source.unsplash.com/400x300/?chopta,india',
+      hero: 'https://picsum.photos/seed/chopta/800/600',
+      detail: 'https://picsum.photos/seed/chopta-detail/800/600',
+      thumb: 'https://picsum.photos/seed/chopta/400/300',
     },
     howToReach: {
       train: 'Nearest railway station is Rishikesh (202 km), connected to Delhi and Haridwar.',
@@ -240,9 +240,9 @@ const placesData = [
       'Waterfall rappelling at Chhoie waterfall',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?tirthan-valley,india',
-      detail: 'https://source.unsplash.com/800x600/?tirthan-valley,travel',
-      thumb: 'https://source.unsplash.com/400x300/?tirthan-valley,india',
+      hero: 'https://picsum.photos/seed/tirthan-valley/800/600',
+      detail: 'https://picsum.photos/seed/tirthan-valley-detail/800/600',
+      thumb: 'https://picsum.photos/seed/tirthan-valley/400/300',
     },
     howToReach: {
       train: 'Nearest broad-gauge station is Ambala (280 km), narrow gauge at Joginder Nagar.',
@@ -282,9 +282,9 @@ const placesData = [
       'Paragliding over the valley',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?mechuka,india',
-      detail: 'https://source.unsplash.com/800x600/?mechuka,travel',
-      thumb: 'https://source.unsplash.com/400x300/?mechuka,india',
+      hero: 'https://picsum.photos/seed/mechuka/800/600',
+      detail: 'https://picsum.photos/seed/mechuka-detail/800/600',
+      thumb: 'https://picsum.photos/seed/mechuka/400/300',
     },
     howToReach: {
       train: 'Nearest railhead is Murkongselek (350 km), connected to Guwahati.',
@@ -324,9 +324,9 @@ const placesData = [
       'Fresh seafood shacks on the shore',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?gokarna,india',
-      detail: 'https://source.unsplash.com/800x600/?gokarna,travel',
-      thumb: 'https://source.unsplash.com/400x300/?gokarna,india',
+      hero: 'https://picsum.photos/seed/gokarna/800/600',
+      detail: 'https://picsum.photos/seed/gokarna-detail/800/600',
+      thumb: 'https://picsum.photos/seed/gokarna/400/300',
     },
     howToReach: {
       train: 'Gokarna Road station (20 km) is on the Konkan Railway line from Mumbai to Mangalore.',
@@ -365,9 +365,9 @@ const placesData = [
       'Nearby Patola silk weaving heritage',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?rani-ki-vav,india',
-      detail: 'https://source.unsplash.com/800x600/?rani-ki-vav,travel',
-      thumb: 'https://source.unsplash.com/400x300/?rani-ki-vav,india',
+      hero: 'https://picsum.photos/seed/rani-ki-vav/800/600',
+      detail: 'https://picsum.photos/seed/rani-ki-vav-detail/800/600',
+      thumb: 'https://picsum.photos/seed/rani-ki-vav/400/300',
     },
     howToReach: {
       train: 'Patan station (5 km) has trains from Ahmedabad and Mehsana.',
@@ -408,9 +408,9 @@ const placesData = [
       'Stargazing in pristine dark skies',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?spiti-valley,india',
-      detail: 'https://source.unsplash.com/800x600/?spiti-valley,travel',
-      thumb: 'https://source.unsplash.com/400x300/?spiti-valley,india',
+      hero: 'https://picsum.photos/seed/spiti-valley/800/600',
+      detail: 'https://picsum.photos/seed/spiti-valley-detail/800/600',
+      thumb: 'https://picsum.photos/seed/spiti-valley/400/300',
     },
     howToReach: {
       train: 'Nearest station is Joginder Nagar (290 km) or Shimla (412 km via road).',
@@ -449,9 +449,9 @@ const placesData = [
       'Natural swimming pools below the falls',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?bhimlat-falls,india',
-      detail: 'https://source.unsplash.com/800x600/?bhimlat-falls,travel',
-      thumb: 'https://source.unsplash.com/400x300/?bhimlat-falls,india',
+      hero: 'https://picsum.photos/seed/bhimlat-falls/800/600',
+      detail: 'https://picsum.photos/seed/bhimlat-falls-detail/800/600',
+      thumb: 'https://picsum.photos/seed/bhimlat-falls/400/300',
     },
     howToReach: {
       train: 'Nearest station is Bundi (35 km), connected to Kota junction and Jaipur.',
@@ -490,9 +490,9 @@ const placesData = [
       'White Rann salt desert landscape',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?dholavira,india',
-      detail: 'https://source.unsplash.com/800x600/?dholavira,travel',
-      thumb: 'https://source.unsplash.com/400x300/?dholavira,india',
+      hero: 'https://picsum.photos/seed/dholavira/800/600',
+      detail: 'https://picsum.photos/seed/dholavira-detail/800/600',
+      thumb: 'https://picsum.photos/seed/dholavira/400/300',
     },
     howToReach: {
       train: 'Nearest station is Bhachau (200 km), on the Ahmedabad–Bhuj mainline.',
@@ -532,9 +532,9 @@ const placesData = [
       'India–Nepal border villages',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?sandakphu,india',
-      detail: 'https://source.unsplash.com/800x600/?sandakphu,travel',
-      thumb: 'https://source.unsplash.com/400x300/?sandakphu,india',
+      hero: 'https://picsum.photos/seed/sandakphu/800/600',
+      detail: 'https://picsum.photos/seed/sandakphu-detail/800/600',
+      thumb: 'https://picsum.photos/seed/sandakphu/400/300',
     },
     howToReach: {
       train: 'New Jalpaiguri (NJP) station (95 km to Manebhanjan trek base), connected to Kolkata and Delhi.',
@@ -575,9 +575,9 @@ const placesData = [
       'Rhododendron and birch forest walks',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?munsiyari,india',
-      detail: 'https://source.unsplash.com/800x600/?munsiyari,travel',
-      thumb: 'https://source.unsplash.com/400x300/?munsiyari,india',
+      hero: 'https://picsum.photos/seed/munsiyari/800/600',
+      detail: 'https://picsum.photos/seed/munsiyari-detail/800/600',
+      thumb: 'https://picsum.photos/seed/munsiyari/400/300',
     },
     howToReach: {
       train: 'Nearest station is Kathgodam (295 km), connected to Delhi by overnight train.',
@@ -617,9 +617,9 @@ const placesData = [
       'Cycling through banana plantations',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?hampi-outskirts,india',
-      detail: 'https://source.unsplash.com/800x600/?hampi-outskirts,travel',
-      thumb: 'https://source.unsplash.com/400x300/?hampi-outskirts,india',
+      hero: 'https://picsum.photos/seed/hampi-outskirts/800/600',
+      detail: 'https://picsum.photos/seed/hampi-outskirts-detail/800/600',
+      thumb: 'https://picsum.photos/seed/hampi-outskirts/400/300',
     },
     howToReach: {
       train: 'Hospet Junction (13 km) is well-connected to Bangalore, Goa, and Hyderabad.',
@@ -659,9 +659,9 @@ const placesData = [
       'Horse riding across the meadows',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?khajjiar,india',
-      detail: 'https://source.unsplash.com/800x600/?khajjiar,travel',
-      thumb: 'https://source.unsplash.com/400x300/?khajjiar,india',
+      hero: 'https://picsum.photos/seed/khajjiar/800/600',
+      detail: 'https://picsum.photos/seed/khajjiar-detail/800/600',
+      thumb: 'https://picsum.photos/seed/khajjiar/400/300',
     },
     howToReach: {
       train: 'Nearest station is Pathankot (120 km), connected to Delhi and Amritsar.',
@@ -701,9 +701,9 @@ const placesData = [
       'Trek from Viswema or Jakhama village',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?dzukou-valley,india',
-      detail: 'https://source.unsplash.com/800x600/?dzukou-valley,travel',
-      thumb: 'https://source.unsplash.com/400x300/?dzukou-valley,india',
+      hero: 'https://picsum.photos/seed/dzukou-valley/800/600',
+      detail: 'https://picsum.photos/seed/dzukou-valley-detail/800/600',
+      thumb: 'https://picsum.photos/seed/dzukou-valley/400/300',
     },
     howToReach: {
       train: 'Nearest railhead is Dimapur (74 km from Kohima), on the Lumding–Dimapur line.',
@@ -743,9 +743,9 @@ const placesData = [
       'Kayaking on the Pennar River',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?gandikota,india',
-      detail: 'https://source.unsplash.com/800x600/?gandikota,travel',
-      thumb: 'https://source.unsplash.com/400x300/?gandikota,india',
+      hero: 'https://picsum.photos/seed/gandikota/800/600',
+      detail: 'https://picsum.photos/seed/gandikota-detail/800/600',
+      thumb: 'https://picsum.photos/seed/gandikota/400/300',
     },
     howToReach: {
       train: 'Nearest station is Jammalamadugu (15 km) or Muddanuru on the Guntakal–Kurnool line.',
@@ -784,9 +784,9 @@ const placesData = [
       'Rock climbing on marble cliffs',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?bhedaghat,india',
-      detail: 'https://source.unsplash.com/800x600/?bhedaghat,travel',
-      thumb: 'https://source.unsplash.com/400x300/?bhedaghat,india',
+      hero: 'https://picsum.photos/seed/bhedaghat/800/600',
+      detail: 'https://picsum.photos/seed/bhedaghat-detail/800/600',
+      thumb: 'https://picsum.photos/seed/bhedaghat/400/300',
     },
     howToReach: {
       train: 'Jabalpur Junction (25 km) is a major railway hub connected to Delhi, Mumbai, and Chennai.',
@@ -826,9 +826,9 @@ const placesData = [
       'Indian circus heritage museum',
     ],
     imageUrls: {
-      hero: 'https://source.unsplash.com/800x600/?thalassery,india',
-      detail: 'https://source.unsplash.com/800x600/?thalassery,travel',
-      thumb: 'https://source.unsplash.com/400x300/?thalassery,india',
+      hero: 'https://picsum.photos/seed/thalassery/800/600',
+      detail: 'https://picsum.photos/seed/thalassery-detail/800/600',
+      thumb: 'https://picsum.photos/seed/thalassery/400/300',
     },
     howToReach: {
       train: 'Thalassery railway station is on the Mangalore–Shoranur Konkan Railway line.',
