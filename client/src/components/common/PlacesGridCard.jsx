@@ -15,7 +15,10 @@ const PlacesGridCard = ({ place, isWishlisted = false, onToggleWishlist, nearbyM
 
   return (
     <div
-      onClick={() => navigate(`/places/${place.slug}`)}
+      onClick={() => {
+        sessionStorage.setItem('places-scroll-position', window.scrollY);
+        navigate(`/places/${place.slug}`);
+      }}
       className="group card cursor-pointer overflow-hidden transition-all duration-300 flex flex-col h-full"
     >
       {/* Image */}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useNavigate, useSearchParams, useNavigationType, Link } from 'react-router-dom';
 import {
   Search,
   SlidersHorizontal,
@@ -54,13 +54,12 @@ const SORT_OPTIONS = [
   { value: 'name', label: 'Name (A–Z)' },
 ];
 
-const PAGE_SIZE = 6;
-
 /* ═══════════════════════════════════════════════════════════
    PLACES PAGE
    ═══════════════════════════════════════════════════════════ */
 const Places = () => {
   const navigate = useNavigate();
+  const navType = useNavigationType();
   const [searchParams, setSearchParams] = useSearchParams();
   const { isAuthenticated } = useAuth();
 
@@ -76,7 +75,6 @@ const Places = () => {
   const [allPlaces, setAllPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   /* ── Nearby / geolocation ── */
   const [nearbyMode, setNearbyMode] = useState(false);
@@ -123,7 +121,6 @@ const Places = () => {
 
       const data = await getPlaces(params);
       setAllPlaces(Array.isArray(data) ? data : []);
-      setVisibleCount(PAGE_SIZE);
     } catch (err) {
       console.error('Fetch places failed:', err);
       setError('Unable to load places. Please try again.');
@@ -137,6 +134,21 @@ const Places = () => {
   useEffect(() => {
     fetchPlaces();
   }, [fetchPlaces]);
+
+  /* ─── Restore Scroll Position on Back Navigation ───────── */
+  useEffect(() => {
+    if (!loading && allPlaces.length > 0) {
+      if (navType === 'POP') {
+        const savedScroll = sessionStorage.getItem('places-scroll-position');
+        if (savedScroll) {
+          // Add a tiny timeout to ensure DOM has fully painted the grid items
+          setTimeout(() => {
+            window.scrollTo({ top: parseInt(savedScroll, 10), behavior: 'instant' });
+          }, 0);
+        }
+      }
+    }
+  }, [loading, allPlaces.length, navType]);
 
   /* ─── Fetch wishlist if authenticated ──────────────────── */
   useEffect(() => {
@@ -226,7 +238,6 @@ const Places = () => {
           const { latitude, longitude } = position.coords;
           const data = await getNearbyPlaces(latitude, longitude, 1000);
           setAllPlaces(Array.isArray(data) ? data : []);
-          setVisibleCount(PAGE_SIZE);
           setNearbyMode(true);
         } catch (err) {
           console.error('Nearby fetch failed:', err);
@@ -275,8 +286,6 @@ const Places = () => {
     return 0; // "featured" = API default order
   });
 
-  const visiblePlaces = sortedPlaces.slice(0, visibleCount);
-  const hasMore = visibleCount < sortedPlaces.length;
   const activeFilterCount =
     (searchInput ? 1 : 0) + (category ? 1 : 0) + (season ? 1 : 0) + (crowdScore ? 1 : 0);
 
@@ -490,7 +499,7 @@ const Places = () => {
         ) : (
           /* ── Results ── */
           <div className="animate-stagger grid grid-cols-1 gap-6 md:grid-cols-2">
-            {visiblePlaces.map((place) => (
+            {sortedPlaces.map((place) => (
               <PlacesGridCard
                 key={place._id}
                 place={place}
@@ -499,19 +508,6 @@ const Places = () => {
                 nearbyMode={nearbyMode}
               />
             ))}
-          </div>
-        )}
-
-        {/* ── Load More ── */}
-        {!loading && hasMore && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-              className="btn-outline gap-2"
-            >
-              Load More Places
-              <RefreshCw className="h-4 w-4" />
-            </button>
           </div>
         )}
       </div>

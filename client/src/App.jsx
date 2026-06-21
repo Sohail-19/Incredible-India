@@ -1,4 +1,5 @@
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate, useNavigationType } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAuth } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import BottomTabBar from './components/layout/BottomTabBar';
@@ -31,6 +32,21 @@ const ProtectedRoute = ({ children }) => {
 // Pages that show the navigation shell (Navbar + BottomTabBar + Footer)
 const SHELL_ROUTES = ['/', '/places', '/map', '/wishlist', '/profile'];
 
+// ScrollToTop component
+const ScrollToTop = () => {
+  const location = useLocation();
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    // Only scroll to top if it's a new navigation, not a "Back" button (POP)
+    if (navType !== 'POP') {
+      window.scrollTo(0, 0);
+    }
+  }, [location, navType]);
+
+  return null;
+};
+
 const App = () => {
   const location = useLocation();
 
@@ -41,6 +57,7 @@ const App = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ScrollToTop />
       {showShell && <Navbar />}
 
       <main className={`flex-1 ${showShell ? 'pb-16 md:pb-0' : ''}`}>
