@@ -80,17 +80,29 @@ router.get('/nearby', async (req, res) => {
     // Convert km to meters for MongoDB $maxDistance
     const radiusMeters = radiusKm * 1000;
 
-    const places = await Place.find({
-      coordinates: {
-        $near: {
-          $geometry: {
+    // Use $geoNear aggregation to get distance for each result
+    const places = await Place.aggregate([
+      {
+        $geoNear: {
+          near: {
             type: 'Point',
             coordinates: [longitude, latitude], // GeoJSON: [lng, lat]
           },
-          $maxDistance: radiusMeters,
+          distanceField: 'distanceMeters',
+          maxDistance: radiusMeters,
+          spherical: true,
         },
       },
-    });
+      {
+        $addFields: {
+          distanceKm: { $round: [{ $divide: ['$distanceMeters', 1000] }, 1] },
+        },
+      },
+      { $sort: { distanceMeters: 1 } },
+      {
+        $project: { distanceMeters: 0 }, // Remove raw meters field, keep distanceKm
+      },
+    ]);
 
     console.log(`📍 Found ${places.length} places within ${radiusKm}km of [${lat}, ${lng}]`);
 

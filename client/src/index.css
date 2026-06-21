@@ -98,6 +98,15 @@
   .animate-stagger > *:nth-child(4) { animation-delay: 180ms; }
   .animate-stagger > *:nth-child(5) { animation-delay: 240ms; }
   .animate-stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+  /* Hide scrollbar for horizontal scroll filter chips */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ─── Leaflet Override (prevent Tailwind conflicts) ──── */
