@@ -1,28 +1,198 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeft, Eye, EyeOff, AlertTriangle } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { loginUser } from '../api/auth';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
+
+  // Determine where to send user after login
+  const from = location.state?.from || '/';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const data = await loginUser(email, password);
+      // data contains { token, user }
+      login(data.token, data.user);
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error('Login error:', err);
+      // Backend returns 401 with { message: 'Invalid email or password.' }
+      setError(err.response?.data?.message || 'Invalid email or password');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    setToastMessage('Google sign-in coming soon');
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    setToastMessage('Forgot password coming soon');
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-screen flex-col bg-background px-6 py-8">
+      {/* Top Bar */}
+      <div className="w-full max-w-md mx-auto flex items-center justify-between mb-8">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-surface transition-colors hover:bg-gray-100 shadow-sm border border-border-light"
+        >
+          <ArrowLeft className="h-5 w-5 text-text-primary" />
+        </button>
+      </div>
+
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col justify-center pb-12">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1B4332] shadow-md">
+            <span className="text-xl font-bold text-white tracking-widest">II</span>
+          </div>
+        </div>
+
+        {/* Heading */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-secondary">
-            Welcome back to
-          </h1>
-          <h2 className="text-2xl font-bold">
-            Incredible<span className="text-primary">India</span>
-          </h2>
+          <h1 className="text-2xl font-bold text-text-primary">Welcome back</h1>
+          <p className="mt-2 text-sm text-text-secondary">
+            Sign in to your IncredibleIndia account
+          </p>
         </div>
-        <div className="card p-6">
-          <p className="text-center text-text-secondary">Login Page — Coming Soon</p>
-          <div className="mt-4 h-1 mx-auto w-16 rounded-full bg-primary" />
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-text-primary">
+              Email address
+            </label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError('');
+              }}
+              placeholder="you@example.com"
+              className={`w-full rounded-btn border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${
+                error ? 'border-danger' : 'border-border-dark'
+              }`}
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-text-primary">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError('');
+                }}
+                placeholder="••••••••"
+                className={`w-full rounded-btn border bg-white pl-4 pr-12 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${
+                  error ? 'border-danger' : 'border-border-dark'
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary"
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
+            
+            {/* Error Message */}
+            {error && (
+              <p className="mt-2 flex items-center gap-1.5 text-xs text-danger">
+                <AlertTriangle className="h-3.5 w-3.5" />
+                {error}
+              </p>
+            )}
+
+            <div className="mt-2 flex justify-end">
+              <button
+                onClick={handleForgotPassword}
+                className="text-xs font-semibold text-primary hover:underline"
+              >
+                Forgot password?
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading || !email || !password}
+            className="mt-6 w-full rounded-btn bg-primary py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark disabled:opacity-70 flex justify-center items-center h-12"
+          >
+            {loading ? (
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            ) : (
+              'Login'
+            )}
+          </button>
+        </form>
+
+        <div className="my-8 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border-light" />
+          <span className="text-xs text-text-muted uppercase">or</span>
+          <div className="h-px flex-1 bg-border-light" />
         </div>
-        <p className="mt-4 text-center text-sm text-text-secondary">
+
+        {/* Google Button Placeholder */}
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="flex w-full items-center justify-center gap-3 rounded-btn border border-border-dark bg-white py-3 text-sm font-semibold text-text-primary transition-colors hover:bg-gray-50 h-12 shadow-sm"
+        >
+          <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.8 15.71 17.58V20.35H19.28C21.36 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
+            <path d="M12 23C14.97 23 17.46 22.02 19.28 20.35L15.71 17.58C14.73 18.24 13.48 18.63 12 18.63C9.14 18.63 6.71 16.7 5.84 14.11H2.17V16.96C3.98 20.55 7.69 23 12 23Z" fill="#34A853"/>
+            <path d="M5.84 14.11C5.62 13.45 5.49 12.74 5.49 12C5.49 11.26 5.62 10.55 5.84 9.89V7.04H2.17C1.43 8.52 1 10.2 1 12C1 13.8 1.43 15.48 2.17 16.96L5.84 14.11Z" fill="#FBBC05"/>
+            <path d="M12 5.37C13.62 5.37 15.06 5.93 16.2 7.02L19.35 3.87C17.46 2.11 14.97 1 12 1C7.69 1 3.98 3.45 2.17 7.04L5.84 9.89C6.71 7.3 9.14 5.37 12 5.37Z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <p className="mt-8 text-center text-sm text-text-secondary">
           Don't have an account?{' '}
-          <Link to="/register" className="font-semibold text-primary hover:text-primary-dark">
-            Sign up
+          <Link to="/register" className="font-bold text-primary hover:text-primary-dark">
+            Create one
           </Link>
         </p>
       </div>
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-12 left-1/2 -translate-x-1/2 rounded-full bg-black/80 px-4 py-2 text-sm text-white shadow-lg animate-in fade-in slide-in-from-bottom-5 z-50">
+          {toastMessage}
+        </div>
+      )}
     </div>
   );
 };

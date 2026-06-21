@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X, Heart, ClipboardList, PenLine } from 'lucide-react';
 import Button from './Button';
 
@@ -23,6 +23,7 @@ const triggerConfig = {
 
 const AuthGateModal = ({ isOpen, onClose, trigger = 'wishlist' }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const overlayRef = useRef(null);
   const config = triggerConfig[trigger] || triggerConfig.wishlist;
   const Icon = config.icon;
@@ -80,14 +81,14 @@ const AuthGateModal = ({ isOpen, onClose, trigger = 'wishlist' }) => {
             <Button
               variant="primary"
               className="w-full"
-              onClick={() => { onClose(); navigate('/register'); }}
+              onClick={() => { onClose(); navigate('/register', { state: { from: location.pathname } }); }}
             >
               Create free account
             </Button>
             <Button
               variant="outline"
               className="w-full"
-              onClick={() => { onClose(); navigate('/login'); }}
+              onClick={() => { onClose(); navigate('/login', { state: { from: location.pathname } }); }}
             >
               Login instead
             </Button>

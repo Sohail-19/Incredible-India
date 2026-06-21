@@ -15,6 +15,8 @@ import Register from './pages/Register';
 import Wishlist from './pages/Wishlist';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 // Protected route wrapper
 const ProtectedRoute = ({ children }) => {
@@ -30,7 +32,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 // Pages that show the navigation shell (Navbar + BottomTabBar + Footer)
-const SHELL_ROUTES = ['/', '/places', '/map', '/wishlist', '/profile'];
+const SHELL_ROUTES = ['/', '/places', '/map', '/wishlist', '/profile', '/terms', '/privacy'];
 
 // ScrollToTop component
 const ScrollToTop = () => {
@@ -69,6 +71,8 @@ const App = () => {
           <Route path="/planner" element={<Planner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route
             path="/wishlist"
             element={
