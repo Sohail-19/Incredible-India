@@ -77,6 +77,7 @@ Generate a structured JSON itinerary with this exact format:
       "day": 1,
       "title": "Day title",
       "destination": "Place name",
+      "dayTheme": "Arrival & Settle In",
       "state": "State name",
       "activities": [
         {
@@ -102,26 +103,50 @@ Generate a structured JSON itinerary with this exact format:
     "min": 10000,
     "max": 20000
   },
+  "costBreakdown": {
+    "accommodation": {"min": 2000, "max": 3000},
+    "food": {"min": 800, "max": 1200},
+    "transport": {"min": 1500, "max": 2000},
+    "activities": {"min": 300, "max": 600}
+  },
   "packingTips": ["tip1", "tip2"],
   "bestTimeToVisit": "Recommendation based on the destinations",
   "importantNotes": ["note1", "note2"]
 }
 
 IMPORTANT:
+- Each day object must include a "dayTheme" field: a 2 to 4 word phrase describing what makes that specific day unique. Examples: "Arrival & Settle In", "Forest Trek Day", "River & Waterfalls", "Village Walk & Rest", "Departure Morning". This must be different for every day even when the location is the same across multiple days.
+- Include AT LEAST 2 different destinations across the itinerary. Do not place the traveller in the same location for all days unless the trip is only 1 or 2 days long.
 - Use primarily the destinations from the provided database above.
 - Include realistic travel times between destinations.
 - All costs should be in INR (₹).
 - Include local food recommendations.
 - Add practical tips for each destination.
+- IMPORTANT: costBreakdown values MUST be objects with 'min' and 'max' number fields, not single numbers or strings.
 - Return ONLY valid JSON, no markdown formatting or code blocks.`;
 
     console.log(`🤖 Generating ${days}-day itinerary from ${startCity} (budget: ${budgetLevel || 'mid'})`);
 
     // Call Google Gemini API
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-3.1-flash-lite-preview' });
 
-    const result = await model.generateContent(prompt);
+    let attempts = 0;
+    let result;
+    while (attempts < 2) {
+      try {
+        result = await model.generateContent(prompt);
+        break;
+      } catch (err) {
+        if (err.message?.includes('503') && attempts === 0) {
+          console.warn('⚠️ Gemini API 503 error, retrying in 3 seconds...');
+          attempts++;
+          await new Promise(resolve => setTimeout(resolve, 3000));
+        } else {
+          throw err;
+        }
+      }
+    }
     const response = result.response;
     const text = response.text();
 
@@ -130,6 +155,7 @@ IMPORTANT:
     try {
       const cleanedText = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
       generatedPlan = JSON.parse(cleanedText);
+      console.log('costBreakdown:', JSON.stringify(generatedPlan.costBreakdown, null, 2));
     } catch (parseError) {
       console.error('⚠️ Failed to parse Gemini response as JSON:', parseError.message);
       console.error('Raw response:', text.substring(0, 500));
@@ -159,7 +185,7 @@ IMPORTANT:
       title: generatedPlan.title || `${days}-Day Trip from ${startCity}`,
       startCity,
       days: parseInt(days),
-      budgetLevel: budgetLevel || 'mid',
+      budgetLevel: req.body.budgetLevel,
       travelStyles: travelStyles || [],
       generatedPlan,
       placesUsed,

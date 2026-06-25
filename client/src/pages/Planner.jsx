@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Check, User, MapPin, Calendar, Wallet, Compass, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, Check, User, MapPin, Calendar, Wallet, Compass, Plus, Minus, AlertTriangle } from 'lucide-react';
+import { generateItinerary } from '../api/planner';
+import { useAuth } from '../context/AuthContext';
 
 const POPULAR_CITIES = ['Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata'];
 
@@ -40,6 +42,7 @@ const BUDGET_OPTIONS = [
 const Planner = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [wizardData, setWizardData] = useState({
@@ -50,6 +53,7 @@ const Planner = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
+  const [error, setError] = useState(null);
 
   // Pre-fill startCity if navigated from a place detail page
   useEffect(() => {
@@ -69,17 +73,33 @@ const Planner = () => {
         });
       }, 800);
 
-      // Simulate API call completion after 3.5 seconds
-      const timeout = setTimeout(() => {
-        navigate('/itinerary-result', { state: wizardData });
-      }, 3500);
-
-      return () => {
-        clearInterval(interval);
-        clearTimeout(timeout);
-      };
+      return () => clearInterval(interval);
+    } else {
+      setLoadingStep(0);
     }
-  }, [isLoading, navigate, wizardData]);
+  }, [isLoading]);
+
+  const handleGenerate = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await generateItinerary(wizardData);
+      navigate('/itinerary-result', { 
+        state: { 
+          itinerary: {
+            ...result,
+            budgetLevel: wizardData.budgetLevel,
+            startCity: wizardData.startCity,
+          }, 
+          wizardData 
+        } 
+      });
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || 'Something went wrong while generating your trip.');
+      setIsLoading(false);
+    }
+  };
 
   const handleNext = () => {
     if (currentStep < 4) {
@@ -95,12 +115,26 @@ const Planner = () => {
     }
   };
 
-  const handleGenerate = () => {
-    setIsLoading(true);
-  };
-
   if (isLoading) {
     return <LoadingState startCity={wizardData.startCity} currentLoadingStep={loadingStep} />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 text-center">
+        <div className="bg-red-50 text-red-600 p-4 rounded-full mb-4">
+          <AlertTriangle className="w-8 h-8" />
+        </div>
+        <h2 className="text-2xl font-bold text-text-primary mb-2">Oops!</h2>
+        <p className="text-text-secondary mb-8 max-w-sm">{error}</p>
+        <button
+          onClick={() => setError(null)}
+          className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-btn font-bold transition-colors"
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -112,9 +146,12 @@ const Planner = () => {
             <ArrowLeft className="w-6 h-6" />
           </button>
           <h1 className="text-xl font-bold tracking-tight">IncredibleIndia</h1>
-          <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center bg-white/10">
+          <button 
+            onClick={() => isAuthenticated ? navigate('/profile') : navigate('/login', { state: { from: location.pathname } })}
+            className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors"
+          >
             <User className="w-4 h-4 text-white" />
-          </div>
+          </button>
         </div>
       </header>
 

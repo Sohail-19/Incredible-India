@@ -17,6 +17,7 @@ import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import ItineraryResult from './pages/ItineraryResult';
 
 // Protected route wrapper
 const ProtectedRoute = ({ children }) => {
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/places/:slug" element={<PlaceDetail />} />
           <Route path="/map" element={<MapView />} />
           <Route path="/planner" element={<Planner />} />
+          <Route path="/itinerary-result" element={<ItineraryResult />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/terms" element={<Terms />} />
