@@ -224,12 +224,12 @@ const ItineraryResult = () => {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 text-xs font-medium text-text-muted">
-                    <div className="flex items-center gap-1.5 max-w-[60%] line-clamp-1">
-                      <Bus className="w-3.5 h-3.5" />
-                      <span className="truncate">{day.transportFromPrevious || "Local exploration"}</span>
+                  <div className="flex items-start justify-between pt-4 border-t border-gray-100 text-xs font-medium text-text-muted">
+                    <div className="flex items-start gap-1.5 max-w-[60%]">
+                      <Bus className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                      <span>{day.transportFromPrevious || "Local exploration"}</span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 mt-0.5">
                       <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                       <span>Rising crowd</span>
                     </div>
