@@ -515,14 +515,23 @@ const PlaceDetail = () => {
         <div className="mx-auto flex max-w-2xl gap-3">
           <button
             onClick={handleToggleWishlist}
-            className="flex flex-1 items-center justify-center gap-2 rounded-btn border border-border-dark py-3 font-semibold text-text-primary transition-colors hover:bg-gray-50"
+            className={`flex flex-1 items-center justify-center gap-2 rounded-btn border py-3 font-semibold transition-colors ${
+              isWishlisted 
+                ? 'bg-[#1B4332] border-[#1B4332] text-white hover:bg-[#153424]' 
+                : 'border-border-dark text-text-primary hover:bg-gray-50'
+            }`}
           >
             {isWishlisted ? (
-              <BookmarkCheck className="h-5 w-5 text-primary" fill="currentColor" />
+              <>
+                <Bookmark className="h-5 w-5" fill="currentColor" />
+                Wishlisted
+              </>
             ) : (
-              <Bookmark className="h-5 w-5" />
+              <>
+                <Bookmark className="h-5 w-5" />
+                Wishlist
+              </>
             )}
-            Save
           </button>
           <button
             onClick={() => navigate('/planner', { state: { destination: place.state } })}

@@ -58,6 +58,10 @@ router.post('/generate', async (req, res) => {
       ? `Travel styles preferred: ${travelStyles.join(', ')}.`
       : '';
 
+    const wishlistInstruction = req.body.wishlistPlaceNames?.length
+      ? `The user has these places saved in their wishlist: ${req.body.wishlistPlaceNames.join(', ')}. Prioritize including these specific destinations in the itinerary where geographically and seasonally sensible.`
+      : '';
+
     const prompt = `You are an expert Indian travel planner specializing in hidden gem destinations.
 
 Create a detailed ${days}-day travel itinerary starting from ${startCity}, India.
@@ -123,7 +127,8 @@ IMPORTANT:
 - Include local food recommendations.
 - Add practical tips for each destination.
 - IMPORTANT: costBreakdown values MUST be objects with 'min' and 'max' number fields, not single numbers or strings.
-- Return ONLY valid JSON, no markdown formatting or code blocks.`;
+- Return ONLY valid JSON, no markdown formatting or code blocks.
+${wishlistInstruction}`;
 
     console.log(`🤖 Generating ${days}-day itinerary from ${startCity} (budget: ${budgetLevel || 'mid'})`);
 

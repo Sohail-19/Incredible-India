@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Bookmark, BookmarkCheck, MapPin, Star, Navigation, Calendar, ArrowRight } from 'lucide-react';
+import { Bookmark, MapPin, Star, Navigation, Calendar, ArrowRight } from 'lucide-react';
 import Badge from './Badge';
 import { formatCategory, formatCrowdScore, formatBudget, truncateText, monthShort } from '../../utils/formatters';
 
@@ -44,7 +44,7 @@ const PlacesGridCard = ({ place, isWishlisted = false, onToggleWishlist, nearbyM
           className="absolute right-3 top-3 rounded-full bg-white/20 p-1.5 backdrop-blur-sm transition-all hover:bg-white/40"
         >
           {isWishlisted ? (
-            <BookmarkCheck className="h-5 w-5 text-primary" fill="currentColor" />
+            <Bookmark className="h-5 w-5 text-primary" fill="currentColor" />
           ) : (
             <Bookmark className="h-5 w-5 text-white" />
           )}

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Bookmark, BookmarkCheck, MapPin } from 'lucide-react';
+import { Bookmark, MapPin } from 'lucide-react';
 import Badge from './Badge';
 import { formatCategory, formatCrowdScore, truncateText, formatBudget } from '../../utils/formatters';
 
@@ -40,7 +40,7 @@ const PlaceCard = ({ place, variant = 'standard', isWishlisted = false, onToggle
             className="absolute right-3 top-3 rounded-full bg-white/20 p-2 backdrop-blur-sm transition-all hover:bg-white/40"
           >
             {isWishlisted ? (
-              <BookmarkCheck className="h-5 w-5 text-primary" fill="currentColor" />
+              <Bookmark className="h-5 w-5 text-primary" fill="currentColor" />
             ) : (
               <Bookmark className="h-5 w-5 text-white" />
             )}
@@ -88,7 +88,7 @@ const PlaceCard = ({ place, variant = 'standard', isWishlisted = false, onToggle
           className="absolute right-2.5 top-2.5 rounded-full bg-white/20 p-1.5 backdrop-blur-sm transition-all hover:bg-white/40"
         >
           {isWishlisted ? (
-            <BookmarkCheck className="h-4 w-4 text-primary" fill="currentColor" />
+            <Bookmark className="h-4 w-4 text-primary" fill="currentColor" />
           ) : (
             <Bookmark className="h-4 w-4 text-white" />
           )}

@@ -49,7 +49,8 @@ const Planner = () => {
     startCity: '',
     days: 5,
     budgetLevel: 'budget',
-    travelStyles: []
+    travelStyles: [],
+    wishlistPlaceNames: []
   });
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
@@ -59,6 +60,9 @@ const Planner = () => {
   useEffect(() => {
     if (location.state?.startCity) {
       setWizardData(prev => ({ ...prev, startCity: location.state.startCity }));
+    }
+    if (location.state?.wishlistPlaceNames) {
+      setWizardData(prev => ({ ...prev, wishlistPlaceNames: location.state.wishlistPlaceNames }));
     }
   }, [location.state]);
 
