@@ -163,7 +163,20 @@ const ItineraryResult = () => {
         <section>
           <div className="flex items-center justify-between mb-5">
             <h3 className="text-xl font-bold text-text-primary">Your Itinerary</h3>
-            <button onClick={() => navigate('/map')} className="text-primary font-bold text-sm">Map View</button>
+            <button 
+              onClick={() => navigate('/map', {
+                state: {
+                  selectedSlugs: itinerary.days?.map(d => {
+                    if (d.placeSlug) return d.placeSlug;
+                    const name = d.placeName || d.destination;
+                    return name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : null;
+                  }).filter(Boolean) ?? []
+                }
+              })} 
+              className="text-primary font-bold text-sm"
+            >
+              Map View
+            </button>
           </div>
 
           <div className="space-y-4">

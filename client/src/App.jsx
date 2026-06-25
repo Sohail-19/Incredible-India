@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 // Pages that show the navigation shell (Navbar + BottomTabBar + Footer)
-const SHELL_ROUTES = ['/', '/places', '/map', '/wishlist', '/profile', '/terms', '/privacy'];
+const SHELL_ROUTES = ['/', '/places', '/wishlist', '/profile', '/terms', '/privacy'];
 
 // ScrollToTop component
 const ScrollToTop = () => {
