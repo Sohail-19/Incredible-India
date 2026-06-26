@@ -4,6 +4,7 @@ import { ArrowLeft, Share2, Zap, MapPin, Bus, Car, Train, Bookmark, Download, Ch
 import { useAuth } from '../context/AuthContext';
 import AuthGateModal from '../components/common/AuthGateModal';
 import { saveItinerary } from '../api/itineraries';
+import api from '../api/axios';
 
 const ItineraryResult = () => {
   const location = useLocation();
@@ -11,8 +12,16 @@ const ItineraryResult = () => {
   const { isAuthenticated } = useAuth();
   
   const [isSaving, setIsSaving] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(location.state?.alreadySaved || false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [savedItineraryId, setSavedItineraryId] = useState(location.state?.itinerary?._id || null);
+  const [hoveringUnsave, setHoveringUnsave] = useState(false);
+  const [toast, setToast] = useState('');
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(''), 2000);
+  };
   
   const [sessionData] = useState(() => {
     if (location.state?.itinerary) {
@@ -68,14 +77,30 @@ const ItineraryResult = () => {
       return;
     }
     
+    if (isSaved && savedItineraryId) {
+      try {
+        await api.delete(`/itineraries/${savedItineraryId}`);
+        setIsSaved(false);
+        setSavedItineraryId(null);
+        showToast('Itinerary removed');
+      } catch (error) {
+        console.error("Failed to unsave itinerary:", error);
+        alert("Failed to unsave itinerary. Please try again.");
+      }
+      return;
+    }
+
     setIsSaving(true);
     try {
-      await saveItinerary({
+      const response = await saveItinerary({
         ...data,
         title: itinerary.title || data.title,
         startDate: new Date(), // Just placeholder for save
       });
       setIsSaved(true);
+      if (response && response._id) {
+        setSavedItineraryId(response._id);
+      }
     } catch (error) {
       console.error("Failed to save itinerary:", error);
       alert("Failed to save itinerary. Please try again.");
@@ -334,18 +359,26 @@ const ItineraryResult = () => {
           </button>
           <button 
             onClick={handleSave}
-            disabled={isSaving || isSaved}
+            onMouseEnter={() => setHoveringUnsave(true)}
+            onMouseLeave={() => setHoveringUnsave(false)}
+            disabled={isSaving}
             className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-btn font-bold text-sm text-white transition-colors shadow-sm ${
               isSaved 
-                ? 'bg-[#1B4332] hover:bg-[#1B4332]' 
+                ? hoveringUnsave ? 'bg-[#BA1A1A] hover:bg-[#BA1A1A]' : 'bg-[#1B4332] hover:bg-[#1B4332]' 
                 : 'bg-primary hover:bg-primary-dark'
             }`}
           >
             {isSaved ? (
-              <>
-                <Check className="w-4 h-4" />
-                Saved
-              </>
+              hoveringUnsave ? (
+                <>
+                  ✕ Unsave
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" />
+                  Saved
+                </>
+              )
             ) : (
               <>
                 <Bookmark className="w-4 h-4" />
@@ -362,6 +395,12 @@ const ItineraryResult = () => {
           onClose={() => setShowAuthModal(false)}
           trigger="itinerary"
         />
+      )}
+
+      {toast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#1B4332] text-white text-sm px-4 py-2 rounded-full z-50 whitespace-nowrap shadow-lg">
+          {toast}
+        </div>
       )}
     </div>
   );
