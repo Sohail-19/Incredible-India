@@ -95,7 +95,7 @@ const App = () => {
         </Routes>
       </main>
 
-      {showShell && <Footer />}
+      {showShell && location.pathname !== '/profile' && <Footer />}
       {showShell && <BottomTabBar />}
     </div>
   );
