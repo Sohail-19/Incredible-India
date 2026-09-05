@@ -180,9 +180,9 @@ const Wishlist = () => {
       {/* Section 5 — FAB */}
       {wishlist.length > 0 && (
         <button
-          onClick={() => navigate('/planner', {
+          onClick={() => navigate('/planner/wishlist', {
             state: {
-              preSelectedPlaces: wishlist.map(p => p.slug),
+              wishlistPlaces: wishlist.map(p => ({ name: p.name, slug: p.slug, category: p.category })),
               wishlistPlaceNames: wishlist.map(p => p.name),
             }
           })}

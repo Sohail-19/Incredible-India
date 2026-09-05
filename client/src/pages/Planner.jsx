@@ -55,16 +55,26 @@ const Planner = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
   const [error, setError] = useState(null);
+  const [wishlistPlaceNames, setWishlistPlaceNames] = useState([]);
+  const [toast, setToast] = useState('');
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(''), 2000);
+  };
 
   // Pre-fill startCity if navigated from a place detail page
   useEffect(() => {
     if (location.state?.startCity) {
       setWizardData(prev => ({ ...prev, startCity: location.state.startCity }));
     }
-    if (location.state?.wishlistPlaceNames) {
-      setWizardData(prev => ({ ...prev, wishlistPlaceNames: location.state.wishlistPlaceNames }));
-    }
   }, [location.state]);
+
+  useEffect(() => {
+    if (location.state?.wishlistPlaceNames?.length > 0) {
+      setWishlistPlaceNames(location.state.wishlistPlaceNames);
+    }
+  }, []);
 
   // Loading animation effect
   useEffect(() => {
@@ -87,7 +97,10 @@ const Planner = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await generateItinerary(wizardData);
+      const result = await generateItinerary({
+        ...wizardData,
+        wishlistPlaceNames: wishlistPlaceNames,
+      });
       navigate('/itinerary-result', { 
         state: { 
           itinerary: {
@@ -106,6 +119,10 @@ const Planner = () => {
   };
 
   const handleNext = () => {
+    if (currentStep === 1 && !wizardData.startCity.trim()) {
+      showToast('Please fill in this field');
+      return;
+    }
     if (currentStep < 4) {
       setCurrentStep(prev => prev + 1);
     }
@@ -193,6 +210,16 @@ const Planner = () => {
               </div>
               
               <div>
+                {wishlistPlaceNames.length > 0 && (
+                  <div className="bg-[#D8F3DC] border border-[#1B4332]/20 rounded-xl px-4 py-3 mb-4">
+                    <p className="text-sm text-[#1B4332] font-medium">
+                      ✨ Planning trip from your wishlist
+                    </p>
+                    <p className="text-xs text-[#1B4332]/70 mt-0.5">
+                      {wishlistPlaceNames.join(', ')}
+                    </p>
+                  </div>
+                )}
                 <label className="text-xs font-bold text-text-muted uppercase tracking-wider mb-2 block">
                   Your City
                 </label>
@@ -375,8 +402,7 @@ const Planner = () => {
           {currentStep < 4 ? (
             <button
               onClick={handleNext}
-              disabled={currentStep === 1 && !wizardData.startCity.trim()}
-              className="w-full bg-primary hover:bg-primary-dark text-white text-lg font-bold py-4 rounded-btn transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md"
+              className="w-full bg-[#FF6F00] hover:bg-primary-dark text-white text-lg font-bold py-4 rounded-btn transition-colors flex items-center justify-center gap-2 shadow-md"
             >
               Next <span>→</span>
             </button>
@@ -391,6 +417,12 @@ const Planner = () => {
           )}
         </div>
       </div>
+
+      {toast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#BA1A1A] text-white text-sm px-4 py-2 rounded-full z-50 whitespace-nowrap shadow-lg">
+          {toast}
+        </div>
+      )}
     </div>
   );
 };

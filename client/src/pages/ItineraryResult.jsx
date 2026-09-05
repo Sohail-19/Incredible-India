@@ -127,7 +127,7 @@ const ItineraryResult = () => {
         <button onClick={() => navigate(-1)} className="p-2 -ml-2 hover:bg-white/10 rounded-full transition-colors">
           <ArrowLeft className="w-6 h-6" />
         </button>
-        <h1 className="text-lg font-bold">IncredibleIndia</h1>
+        <span onClick={() => navigate('/')} className="cursor-pointer font-bold text-white text-lg">IncredibleIndia</span>
         <button onClick={handleShare} className="p-2 -mr-2 hover:bg-white/10 rounded-full transition-colors">
           <Share2 className="w-5 h-5" />
         </button>

@@ -10,6 +10,7 @@ import Places from './pages/Places';
 import PlaceDetail from './pages/PlaceDetail';
 import MapView from './pages/MapView';
 import Planner from './pages/Planner';
+import WishlistPlanner from './pages/WishlistPlanner';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Wishlist from './pages/Wishlist';
@@ -70,6 +71,7 @@ const App = () => {
           <Route path="/places/:slug" element={<PlaceDetail />} />
           <Route path="/map" element={<MapView />} />
           <Route path="/planner" element={<Planner />} />
+          <Route path="/planner/wishlist" element={<WishlistPlanner />} />
           <Route path="/itinerary-result" element={<ItineraryResult />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

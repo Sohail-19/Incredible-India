@@ -59,7 +59,7 @@ router.post('/generate', async (req, res) => {
       : '';
 
     const wishlistInstruction = req.body.wishlistPlaceNames?.length
-      ? `The user has these places saved in their wishlist: ${req.body.wishlistPlaceNames.join(', ')}. Prioritize including these specific destinations in the itinerary where geographically and seasonally sensible.`
+      ? `IMPORTANT: The user has specifically saved these places to their wishlist: ${req.body.wishlistPlaceNames.join(', ')}. You MUST include ALL of these exact places as destinations in the itinerary. Do not substitute them with other locations. Build the day plans around these specific places.`
       : '';
 
     const prompt = `You are an expert Indian travel planner specializing in hidden gem destinations.
@@ -120,7 +120,7 @@ Generate a structured JSON itinerary with this exact format:
 
 IMPORTANT:
 - Each day object must include a "dayTheme" field: a 2 to 4 word phrase describing what makes that specific day unique. Examples: "Arrival & Settle In", "Forest Trek Day", "River & Waterfalls", "Village Walk & Rest", "Departure Morning". This must be different for every day even when the location is the same across multiple days.
-- Include AT LEAST 2 different destinations across the itinerary. Do not place the traveller in the same location for all days unless the trip is only 1 or 2 days long.
+- Include AT LEAST 2 different destinations across the itinerary, prioritizing any wishlist places specified above. Do not place the traveller in the same location for all days unless the trip is only 1 or 2 days long.
 - Use primarily the destinations from the provided database above.
 - Include realistic travel times between destinations.
 - All costs should be in INR (₹).
