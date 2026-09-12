@@ -103,25 +103,22 @@ const Home = () => {
           SECTION 1: HERO
           ═══════════════════════════════════════════════ */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img
-            src="https://picsum.photos/seed/himalaya/1600/900"
-            alt="Indian Himalayas"
-            className="h-full w-full object-cover"
-          />
-          {/* Dark green gradient overlay */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(to bottom, transparent 0%, rgba(27,67,50,0.3) 40%, rgba(27,67,50,0.85) 100%)',
-            }}
-          />
-        </div>
+        {/* Background Video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        >
+          <source src="https://res.cloudinary.com/iosbkfqo/video/upload/v1788904191/Himalayas_aerial.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col items-center px-5 text-center">
+        <div className="relative z-20 flex flex-col items-center px-5 text-center">
           {/* Eyebrow */}
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-white/70 sm:text-sm">
             Explore the Unexplored

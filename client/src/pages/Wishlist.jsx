@@ -135,7 +135,7 @@ const Wishlist = () => {
                 onClick={() => navigate(`/places/${place.slug}`)}
               >
                 <img
-                  src={`https://picsum.photos/seed/${place.slug}/110/110`}
+                  src={place.imageUrls?.thumb || place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}/110/110`}
                   alt={place.name}
                   className="w-[110px] h-[110px] object-cover flex-shrink-0"
                 />

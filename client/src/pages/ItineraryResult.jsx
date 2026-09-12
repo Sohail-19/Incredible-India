@@ -7,6 +7,53 @@ import { saveItinerary } from '../api/itineraries';
 import api from '../api/axios';
 
 const ItineraryResult = () => {
+  const placeImageMap = {
+    'Spiti Valley': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788646537/Spiti_Valley.jpg',
+    'Tirthan Valley': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647316/Tirthan_Valley.jpg',
+    'Dzukou Valley': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647661/Dzukou_Valley.jpg',
+    'Ziro Valley': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648060/Ziro_Valley.jpg',
+    'Hampi (outskirts)': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648275/Hampi.jpg',
+    'Hampi': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648275/Hampi.jpg',
+    'Mechuka': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648611/Mechuka.jpg',
+    'Prashar Lake': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648919/Prashar_Lake.jpg',
+    'Sandakphu': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788724761/Sandakphu.jpg',
+    'Rani ki Vav': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725249/Rani_ki_Vav.jpg',
+    'Munsiyari': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725438/Munsiyari.jpg',
+    'Majuli Island': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788726109/Majuli_Island.jpg',
+    'Chopta': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788726341/Chopta.jpg',
+    'Gandikota': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788726486/Gandikota.jpg',
+    'Gokarna': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788813260/Gokarna.jpg',
+    'Lonar Crater Lake': 'https://res.cloudinary.com/iosbkfqo/image/upload/v17888813637/Lonar_Crater_Lake.jpg',
+    'Dholavira': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788880591/dholavira_featuredimage.jpg',
+    'Khajjiar': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788880980/Khajjar.jpg',
+    'Bhedaghat': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881235/Bhedaghat.jpg',
+    'Bhimlat Falls': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881571/Bhimlat_Falls.jpg',
+    'Thalassery': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881746/Thalassery.jpg',
+    'Shimla': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788724761/Sandakphu.jpg',
+    'Manali': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788646537/Spiti_Valley.jpg',
+    'Chail': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647316/Tirthan_Valley.jpg',
+    'Kasol': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647316/Tirthan_Valley.jpg',
+    'Rishikesh': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788726341/Chopta.jpg',
+    'Coorg': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647661/Dzukou_Valley.jpg',
+    'Ooty': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647661/Dzukou_Valley.jpg',
+    'Munnar': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647661/Dzukou_Valley.jpg',
+    'Wayanad': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881746/Thalassery.jpg',
+    'Alleppey': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881746/Thalassery.jpg',
+    'Mysore': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788648275/Hampi.jpg',
+    'Udaipur': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725249/Rani_ki_Vav.jpg',
+    'Jaisalmer': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788880591/dholavira_featuredimage.jpg',
+    'Jaipur': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725249/Rani_ki_Vav.jpg',
+    'Varanasi': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788881235/Bhedaghat.jpg',
+    'Agra': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725249/Rani_ki_Vav.jpg',
+    'Delhi': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788725249/Rani_ki_Vav.jpg',
+    'Mumbai': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788813260/Gokarna.jpg',
+    'Goa': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788813260/Gokarna.jpg',
+    'Darjeeling': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788724761/Sandakphu.jpg',
+    'Sikkim': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788724761/Sandakphu.jpg',
+    'Leh': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788646537/Spiti_Valley.jpg',
+    'Ladakh': 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788646537/Spiti_Valley.jpg',
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -209,7 +256,7 @@ const ItineraryResult = () => {
               <div key={idx} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-border-light">
                 <div className="relative h-48 w-full bg-gray-200">
                   <img 
-                    src={`https://picsum.photos/seed/${encodeURIComponent(day.placeName || 'india')}-day${day.day}/800/400`} 
+                    src={placeImageMap[day.placeName] || 'https://res.cloudinary.com/iosbkfqo/image/upload/v1788647316/Tirthan_Valley.jpg'} 
                     alt={day.destination || day.placeName}
                     className="w-full h-full object-cover"
                   />

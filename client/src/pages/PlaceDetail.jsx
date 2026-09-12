@@ -477,9 +477,9 @@ const PlaceDetail = () => {
           <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-none snap-x">
             {[
               place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}/800/600`,
-              place.imageUrls?.detail || `https://picsum.photos/seed/${place.slug}-alt1/800/600`,
-              `https://picsum.photos/seed/${place.slug}-alt2/800/600`,
-              `https://picsum.photos/seed/${place.slug}-alt3/800/600`
+              place.imageUrls?.detail || place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}-alt1/800/600`,
+              place.imageUrls?.thumb || place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}-alt2/800/600`,
+              place.imageUrls?.hero || `https://picsum.photos/seed/${place.slug}-alt3/800/600`
             ].map((src, idx) => (
               <img
                 key={idx}

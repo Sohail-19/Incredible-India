@@ -198,7 +198,7 @@ const MapView = () => {
             
             <div className="flex gap-4 mb-5">
               <img
-                src={`https://picsum.photos/seed/${activePlace.slug}/72/72`}
+                src={activePlace.imageUrls?.thumb || activePlace.imageUrls?.hero || `https://picsum.photos/seed/${activePlace.slug}/72/72`}
                 alt={activePlace.name}
                 className="w-[72px] h-[72px] rounded-xl object-cover flex-shrink-0"
               />
